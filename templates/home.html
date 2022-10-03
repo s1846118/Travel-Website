@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/app.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sidebar.css') }}">
+</head>
+<body>
+    <!-- The sidebar -->
+    <div class="sidebar">
+        <a class="active" href="home.html">Home</a>
+        <a href="todocolombia.html">Todo Colombia!</a>
+        <a href="Medellin.html">Medellin</a>
+        <a href="Guatape.html">Guatape</a>
+        <a href="Santa.html">Santa Marta</a>
+        <a href="Burataca.html">Buritaca</a>
+        <a href="Palomino.html">Palomino</a>
+        <a href="Minca.html">Minca</a>
+        <a href="Cartagena.html">Cartagena</a>
+        <a href="Chinchina.html">Chinchina</a>
+        <a href="SantaRosa.html">Santa Rosa</a>
+        <a href="Manizales.html">Manizales</a>
+    </div>
+    <div class="container">
+        <div id="container" class="flex-center flex-column">
+            <h1>COLOMBIA GUIDE</h1>
+            <a href="map.html" class="btn">MyMap</a>
+        </div>
+    </div>
+</body>
+</html>
