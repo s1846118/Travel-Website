@@ -1,13 +1,42 @@
-/* The side navigation menu */
+.container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  background-color: black;
+}
+
 .sidebar {
-    margin: 0;
-    padding: 0;
-    width: 200px;
-    background-color: #f1f1f1;
-    position: fixed;
-    height: 100%;
-    overflow: auto;
-  }
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  width: 15%;
+  background-color: white;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+}
+
+.home {
+  background-color: grey;
+}
+
+.bg-map {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.openbtn {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  width: 0%;
+  background-color: white;
+  height: 0%;
+  position: absolute;
+  z-index: 10;
+}
 
 /* Sidebar links */
 .sidebar a {
@@ -20,7 +49,7 @@
 /* Active/current link */
 .sidebar a.active {
     background-color: #04AA6D;
-    color: white;
+    color: rgb(0, 0, 0);
   }
   
   /* Links on mouse-over */

@@ -6,59 +6,81 @@
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
 <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sidebar.css') }}">
 </head>
 <body style='margin: 0'>
-<div style="width: 100%; height: 100%" id="map"></div>
 
-<script>
+<div id = 'boxes'>
+  <div style="width: 85%; height: 100%; float: right" id="map">
 
-const key_data = {{ key_data|tojson }}
+  <script>
 
-function addMarkerToGroup(group, coordinate, html) {
-  var marker = new H.map.Marker(coordinate);
-  marker.setData(html);
-  group.addObject(marker);
-}
+  const key_data = {{ key_data|tojson }}
 
-function addInfoBubble(map) {
-  var group = new H.map.Group();
+  function addMarkerToGroup(group, coordinate, html) {
+    var marker = new H.map.Marker(coordinate);
+    marker.setData(html);
+    group.addObject(marker);
+  }
 
-  map.addObject(group);
+  function addInfoBubble(map) {
+    var group = new H.map.Group();
 
-  group.addEventListener('tap', function (evt) {
-    var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
-      content: evt.target.getData()
-    });
-    ui.addBubble(bubble);
-  }, false);
+    map.addObject(group);
 
-  addMarkerToGroup(group, {lat:41.3806533, lng:2.1899274},
-    '<div>Our arrival at Barceloneta Beach...</div>' +
-    '</div><img width=200 height=200 src="https://images.unsplash.com/photo-1536012283419-09392f86fb35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80"></img></div>');
-     
-  // TODO add more markers here    
-}
+    group.addEventListener('tap', function (evt) {
+      var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+        content: evt.target.getData()
+      });
+      ui.addBubble(bubble);
+    }, false);
 
-var platform = new H.service.Platform({
-        'apikey': key_data.toString()
-         });
-         	
-var defaultLayers = platform.createDefaultLayers();
+    addMarkerToGroup(group, {lat:41.3806533, lng:2.1899274},
+      '<div>Our arrival at Barceloneta Beach...</div>' +
+      '</div><img width=200 height=200 src="https://images.unsplash.com/photo-1536012283419-09392f86fb35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80"></img></div>');
+      
+    // TODO add more markers here    
+  }
 
-var map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, {
-  // Barcelona location
-  center: new H.geo.Point(41.3828939, 2.1774322),
-  zoom: 11.5,
-  pixelRatio: window.devicePixelRatio || 1
-});
+  var platform = new H.service.Platform({
+          'apikey': key_data.toString()
+          });
+            
+  var defaultLayers = platform.createDefaultLayers();
 
-window.addEventListener('resize', () => map.getViewPort().resize());
-// Behavior implements default interactions for pan/zoom 
-var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-var ui = H.ui.UI.createDefault(map, defaultLayers);
+  var map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, {
+    // Barcelona location
+    center: new H.geo.Point(41.3828939, 2.1774322),
+    zoom: 11.5,
+    pixelRatio: window.devicePixelRatio || 1
+  });
 
-addInfoBubble(map);
+  window.addEventListener('resize', () => map.getViewPort().resize());
+  // Behavior implements default interactions for pan/zoom 
+  var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+  var ui = H.ui.UI.createDefault(map, defaultLayers);
 
-</script>
+  addInfoBubble(map);
+
+  </script>
+
+  </div>
+
+  <div class="sidebar" id = "sidebar">
+    <a href="home.html">Home</a>
+    <a href="todocolombia.html">Todo Colombia!</a>
+    <a href="Medellin.html">Medellin</a>
+    <a href="Guatape.html">Guatape</a>
+    <a href="Santa.html">Santa Marta</a>
+    <a href="Burataca.html">Buritaca</a>
+    <a class="active" href="Palomino.html">Palomino</a>
+    <a href="Minca.html">Minca</a>
+    <a href="Cartagena.html">Cartagena</a>
+    <a href="Chinchina.html">Chinchina</a>
+    <a href="SantaRosa.html">Santa Rosa</a>
+    <a href="Manizales.html">Manizales</a>
+  </div>
+</div>
+
 </body>
 </html>

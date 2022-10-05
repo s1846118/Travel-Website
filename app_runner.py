@@ -49,7 +49,7 @@ def render_minca():
 def render_cartagena():        
     return render_template('Cartagena.html', key_data = key)
 
-@app.route('/Chinachina.html')
+@app.route('/Chinchina.html')
 def render_chinchina():        
     return render_template('Chinchina.html', key_data = key)
 
