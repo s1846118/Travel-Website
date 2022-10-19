@@ -1,86 +1,115 @@
 <html>  
 <head>
 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"type="text/javascript" charset="utf-8"></script>
-<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+type="text/javascript" charset="utf-8"></script>
+<script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
+   type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
-<link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
 <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/sidebar.css') }}">
 </head>
 <body style='margin: 0'>
 
-<div id = 'boxes'>
-  <div style="width: 85%; height: 100%; float: right" id="map">
+<div class="container">
 
-  <script>
+  <button id = "open-b" class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
 
-  const key_data = {{ key_data|tojson }}
-
-  function addMarkerToGroup(group, coordinate, html) {
-    var marker = new H.map.Marker(coordinate);
-    marker.setData(html);
-    group.addObject(marker);
-  }
-
-  function addInfoBubble(map) {
-    var group = new H.map.Group();
-
-    map.addObject(group);
-
-    group.addEventListener('tap', function (evt) {
-      var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
-        content: evt.target.getData()
-      });
-      ui.addBubble(bubble);
-    }, false);
-
-    addMarkerToGroup(group, {lat:41.3806533, lng:2.1899274},
-      '<div>Our arrival at Barceloneta Beach...</div>' +
-      '</div><img width=200 height=200 src="https://images.unsplash.com/photo-1536012283419-09392f86fb35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80"></img></div>');
-      
-    // TODO add more markers here    
-  }
-
-  var platform = new H.service.Platform({
-          'apikey': key_data.toString()
-          });
-            
-  var defaultLayers = platform.createDefaultLayers();
-
-  var map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, {
-    // Barcelona location
-    center: new H.geo.Point(41.3828939, 2.1774322),
-    zoom: 11.5,
-    pixelRatio: window.devicePixelRatio || 1
-  });
-
-  window.addEventListener('resize', () => map.getViewPort().resize());
-  // Behavior implements default interactions for pan/zoom 
-  var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
-  var ui = H.ui.UI.createDefault(map, defaultLayers);
-
-  addInfoBubble(map);
-
-  </script>
-
-  </div>
-
-  <div class="sidebar" id = "sidebar">
-    <a href="home.html">Home</a>
+  <div id = "side-b" class = "sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="home.html" class="home">Home</a>
     <a class="active" href="todocolombia.html">Todo Colombia!</a>
-    <a href="Medellin.html">Medellin</a>
-    <a href="Guatape.html">Guatape</a>
-    <a href="Santa.html">Santa Marta</a>
     <a href="Burataca.html">Buritaca</a>
-    <a href="Palomino.html">Palomino</a>
-    <a href="Minca.html">Minca</a>
     <a href="Cartagena.html">Cartagena</a>
     <a href="Chinchina.html">Chinchina</a>
-    <a href="SantaRosa.html">Santa Rosa</a>
+    <a href="Guatape.html">Guatape</a>
     <a href="Manizales.html">Manizales</a>
+    <a href="Medellin.html">Medellin</a>
+    <a href="Minca.html">Minca</a>
+    <a href="Palomino.html">Palomino</a>
+    <a href="Santa.html">Santa Marta</a>
+    <a href="SantaRosa.html">Santa Rosa</a>
+  </div>
+
+  <div class="topnav">
+    <a class="active" href="#home">Home</a>
+    <a href="#news">News</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+  </div>
+
+  <script>
+  function openNav() {
+    document.getElementById("side-b").style.width = "15%";
+    document.getElementById("open-b").style.width = "0%";
+  }
+  
+  /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+  function closeNav() {
+    document.getElementById("side-b").style.width = "0%";
+    document.getElementById("open-b").style.width = "15%";
+    document.getElementById("open-b").style.height = "5%";
+  }
+  </script>
+  <div style = "width: 100%; height: 100%; float: right;" id = "map" class = "bg-map">
+    <script>
+
+    const key_data = {{ key_data|tojson }}
+
+    function addMarkerToGroup(group, coordinate, html) {
+      var marker = new H.map.Marker(coordinate);
+      marker.setData(html);
+      group.addObject(marker);
+    }
+
+    function addInfoBubble(map, points) {
+      var group = new H.map.Group();
+
+      map.addObject(group);
+
+      group.addEventListener('longpress', function (evt) {
+        var bubble = new H.ui.InfoBubble(evt.target.getGeometry(), {
+          content: evt.target.getData()
+        });
+        ui.addBubble(bubble);
+      }, false);
+
+      map.addEventListener('tap', function (evt) {
+        var coord = map.screenToGeo(evt.currentPointer.viewportX,
+                evt.currentPointer.viewportY);
+
+        addMarkerToGroup(group, {lat:Math.abs(coord.lat.toFixed(4)), lng:Math.abs(coord.lng.toFixed(4))},
+        '<div>Our arrival at Barceloneta Beach...</div>' +
+        '</div><img width=200 height=200 src="https://images.unsplash.com/photo-1536012283419-09392f86fb35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80"></img></div>'
+        )});
+        
+      // TODO add more markers here    
+    }
+
+    var platform = new H.service.Platform({
+            'apikey': key_data.toString()
+            });
+              
+    var defaultLayers = platform.createDefaultLayers();
+
+    var map = new H.Map(document.getElementById('map'), defaultLayers.vector.normal.map, {
+      // Barcelona location
+      center: new H.geo.Point(41.3828939, 2.1774322),
+      zoom: 11.5,
+      pixelRatio: window.devicePixelRatio || 1
+    });
+
+    window.addEventListener('resize', () => map.getViewPort().resize());
+    // Behavior implements default interactions for pan/zoom 
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+    var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+    //Adds info token when clicked. 
+    addInfoBubble(map)
+
+    </script>
   </div>
 </div>
-
 </body>
 </html>

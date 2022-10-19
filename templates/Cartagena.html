@@ -10,11 +10,46 @@
 </head>
 <body style='margin: 0'>
 
-<div id = 'boxes'>
-  <div style="width: 85%; height: 100%; float: right" id="map">
+<div class="container">
+
+  <button id = "open-b" class="openbtn" onclick="openNav()">&#9776; Open Sidebar</button>
+
+  <div id = "side-b" class = "sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="home.html" class="home">Home</a>
+    <a href="todocolombia.html">Todo Colombia!</a>
+    <a href="Burataca.html">Buritaca</a>
+    <a class="active" href="Cartagena.html">Cartagena</a>
+    <a href="Chinchina.html">Chinchina</a>
+    <a href="Guatape.html">Guatape</a>
+    <a href="Manizales.html">Manizales</a>
+    <a href="Medellin.html">Medellin</a>
+    <a href="Minca.html">Minca</a>
+    <a href="Palomino.html">Palomino</a>
+    <a href="Santa.html">Santa Marta</a>
+    <a href="SantaRosa.html">Santa Rosa</a>
+  </div>
 
   <script>
+  function openNav() {
+    document.getElementById("side-b").style.width = "15%";
+    document.getElementById("side-b").style.height = "100%";
+    document.getElementById("open-b").style.width = "0%";
+    document.getElementById("open-b").style.height = "0%";
+  }
+  
+  /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+  function closeNav() {
+    document.getElementById("side-b").style.width = "0%";
+    document.getElementById("side-b").style.height = "0%";
+    document.getElementById("open-b").style.width = "15%";
+    document.getElementById("open-b").style.height = "5%";
 
+  }
+  </script>
+
+  <div style="width: 100%; height: 100%; float: right" id="map" class = "bg-map">
+  <script>
   const key_data = {{ key_data|tojson }}
 
   function addMarkerToGroup(group, coordinate, html) {
@@ -63,24 +98,7 @@
   addInfoBubble(map);
 
   </script>
-
-  </div>
-
-  <div class="sidebar" id = "sidebar">
-    <a href="home.html">Home</a>
-    <a href="todocolombia.html">Todo Colombia!</a>
-    <a href="Medellin.html">Medellin</a>
-    <a href="Guatape.html">Guatape</a>
-    <a href="Santa.html">Santa Marta</a>
-    <a href="Burataca.html">Buritaca</a>
-    <a href="Palomino.html">Palomino</a>
-    <a href="Minca.html">Minca</a>
-    <a class="active" href="Cartagena.html">Cartagena</a>
-    <a href="Chinchina.html">Chinchina</a>
-    <a href="SantaRosa.html">Santa Rosa</a>
-    <a href="Manizales.html">Manizales</a>
   </div>
 </div>
-
 </body>
 </html>
